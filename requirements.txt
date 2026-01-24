@@ -1,0 +1,28 @@
+# Core dependencies
+numpy>=1.24.0
+pandas>=2.0.0
+pyyaml>=6.0
+omegaconf>=2.3.0
+tqdm>=4.65.0
+
+# Optional: Model APIs
+openai>=1.0.0  # For OpenAI models
+anthropic>=0.3.0  # For Claude models
+
+# Optional: Experiment tracking
+wandb>=0.15.0  # Weights & Biases
+mlflow>=2.0.0  # MLflow
+
+# Optional: Data handling
+datasets>=2.14.0  # HuggingFace Datasets
+pandas>=2.0.0
+
+# Optional: Local models
+torch>=2.0.0  # PyTorch
+transformers>=4.30.0  # HuggingFace Transformers
+
+# Development dependencies
+pytest>=7.4.0
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.5.0

@@ -1,0 +1,21 @@
+# Example experiment configuration
+# This extends the base config
+
+base_config: "../base.yaml"
+
+experiment_name: "example_experiment"
+
+model:
+  type: "openai"
+  name: "gpt-4"
+  temperature: 0.7
+
+dataset:
+  path: "data/example_dataset.json"
+  format: "json"
+
+evaluator:
+  type: "example"
+  batch_size: 10
+
+output_dir: "outputs/results/example"

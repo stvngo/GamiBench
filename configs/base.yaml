@@ -1,0 +1,43 @@
+# Base configuration template
+# This can be extended by experiment-specific configs
+
+experiment_name: "experiment"
+seed: 42
+timestamp: null  # Will be auto-generated if null
+
+# Model configuration
+model:
+  type: "openai"  # Model type (must be registered in ModelFactory)
+  name: "gpt-4"
+  api_key: "${OPENAI_API_KEY}"  # Use environment variable
+  # Additional model-specific parameters
+  temperature: 0.7
+  max_tokens: 1000
+
+# Dataset configuration
+dataset:
+  path: "data/dataset.json"  # Relative to data/ directory
+  format: "json"  # json, jsonl, csv, tsv
+  # Additional dataset parameters
+  split: "test"
+  limit: null  # null = use all data
+
+# Evaluator configuration
+evaluator:
+  type: "benchmark_name"  # Evaluator type
+  module: "evaluators.benchmark_name"  # Optional: custom module path
+  class: "BenchmarkNameEvaluator"  # Optional: custom class name
+  # Additional evaluator-specific parameters
+  batch_size: 1
+  show_progress: true
+
+# Output configuration
+output_dir: "outputs/results"
+log_dir: "outputs/logs"
+
+# Experiment tracking (optional)
+tracking:
+  enabled: false
+  type: "wandb"  # wandb, mlflow, tensorboard
+  project: "research_pipeline"
+  run_name: null  # Will use experiment_name if null
