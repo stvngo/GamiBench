@@ -140,7 +140,7 @@ def main() -> int:
 
     evaluator_cfg = _config_to_dict(config.get("evaluator", {}))
     dataset_cfg = _config_to_dict(config.get("dataset", {}))
-    dataset_path = _resolve_dataset_path(config_path, dataset_cfg.get("path", "data/raw/GamiBench"))
+    dataset_path = _resolve_dataset_path(config_path, dataset_cfg.get("path", "data/GamiBench"))
 
     task_plan_path = (
         Path(args.task_plan_path)

@@ -16,12 +16,13 @@ mlflow>=2.0.0  # MLflow
 
 # Optional: Data handling
 datasets>=2.14.0  # HuggingFace Datasets
+huggingface_hub>=0.24.0  # Hugging Face Hub upload/download scripts
 pandas>=2.0.0
 
 # Optional: Local models
 torch>=2.0.0  # PyTorch
 transformers>=4.30.0  # HuggingFace Transformers
-vllm>=0.6.0  # VLLM
+# vllm>=0.6.0  # VLLM
 
 # Development dependencies
 pytest>=7.4.0

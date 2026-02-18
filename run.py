@@ -148,15 +148,24 @@ def create_config_from_args(args) -> str:
     import tempfile
     import yaml
     
+    benchmark_name = args.benchmark.lower()
+    if benchmark_name == "gamibench":
+        dataset_cfg = {
+            "path": "data/GamiBench",
+            "format": "gamibench",
+        }
+    else:
+        dataset_cfg = {
+            "path": f"data/{args.benchmark}.json",
+        }
+
     config = {
         'experiment_name': f"{args.benchmark}_{args.model}",
         'seed': args.seed or 42,
         'model': {
             'type': args.model,
         },
-        'dataset': {
-            'path': f"data/{args.benchmark}.json",
-        },
+        'dataset': dataset_cfg,
         'evaluator': {
             'type': args.benchmark,
         },

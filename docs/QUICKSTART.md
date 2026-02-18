@@ -16,7 +16,7 @@ export OPENAI_API_KEY="your-key-here"
 
 ## 2. Prepare Your Data
 
-Place your dataset in `data/raw/` or `data/processed/`:
+Place your dataset directly under `data/`:
 
 ```json
 [

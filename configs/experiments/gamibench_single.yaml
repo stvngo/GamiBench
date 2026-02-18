@@ -12,7 +12,7 @@ model:
   max_tokens: 8
 
 dataset:
-  path: "data/raw/GamiBench"
+  path: "data/GamiBench"
   format: "gamibench"
 
 evaluator:
