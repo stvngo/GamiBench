@@ -1,8 +1,7 @@
 # GamiBench
 
-End-to-end evaluation pipeline for benchmark MLLMs on 2D-to-3D Origami spatial mapping and reasoning tasks.
+End-to-end evaluation pipeline for benchmark MLLMs on 2D-to-3D Origami spatial mapping and reasoning tasks (FrontierIR, NeusymBridge, & LMReasoning Bridge @ AAAI 2026, Springer Nature 2026).
 
-> [!NOTE]
 > Paper: [arXiv:2512.22207](https://arxiv.org/abs/2512.22207)
 
 ## Structure
