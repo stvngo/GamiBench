@@ -4,6 +4,8 @@ End-to-end evaluation pipeline for benchmark MLLMs on 2D-to-3D Origami spatial m
 
 > Paper: [arXiv:2512.22207](https://arxiv.org/abs/2512.22207)
 
+
+
 ## Structure
 
 ```
@@ -13,9 +15,8 @@ End-to-end evaluation pipeline for benchmark MLLMs on 2D-to-3D Origami spatial m
 │   ├── experiments/     # Experiment-specific configs
 │   ├── models/          # Model configurations
 │   └── datasets/        # Dataset configurations
-├── data/                # Datasets, preprocessing
-│   ├── raw/            # Raw datasets
-│   └── processed/      # Processed datasets
+├── data/                # Dataset folders (creases + fold viewpoints)
+│   └── GamiBench/
 ├── models/              # Model definitions, wrappers
 │   ├── base.py         # BaseModel interface
 │   └── model_factory.py # Model factory
@@ -104,6 +105,38 @@ export ANTHROPIC_API_KEY=...
 export GEMINI_API_KEY=...
 export XAI_API_KEY=...
 export OPENROUTER_API_KEY=...
+```
+
+## Publish to Hugging Face
+
+You can publish and sync the dataset with the built-in scripts.
+
+```bash
+# 1) Authenticate once
+hf auth login
+
+# 2) Publish dataset to a HF dataset repo
+python scripts/publish_hf_dataset.py \
+  --repo-id YOUR_USERNAME/GamiBench \
+  --private
+
+# Optional dry-run preview
+python scripts/publish_hf_dataset.py \
+  --repo-id YOUR_USERNAME/GamiBench \
+  --dry-run
+```
+
+This uploads:
+- `data/GamiBench` (dataset files)
+- `configs/experiments/gamibench_single.yaml` and `gamibench_suite.yaml`
+- `hf/README_dataset.md` as the dataset card (`README.md` in HF repo)
+
+To download/sync the dataset locally:
+
+```bash
+python scripts/download_hf_dataset.py \
+  --repo-id YOUR_USERNAME/GamiBench \
+  --local-dir data
 ```
 
 ## Configuration

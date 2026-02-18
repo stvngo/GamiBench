@@ -35,6 +35,8 @@ setup(
         "console_scripts": [
             "gamibench=run:main",
             "gamibench-suite=scripts.run_gamibench_suite:main",
+            "gamibench-hf-publish=scripts.publish_hf_dataset:main",
+            "gamibench-hf-download=scripts.download_hf_dataset:main",
         ],
     },
 )

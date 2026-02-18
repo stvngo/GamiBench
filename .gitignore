@@ -46,11 +46,9 @@ outputs/
 !configs/**/*.json
 !configs/**/*.yaml
 
-# Data (keep structure, ignore actual data files)
-data/raw/*
-data/processed/*
-!data/raw/.gitkeep
-!data/processed/.gitkeep
+# Data (keep root structure, ignore dataset contents)
+data/*
+!data/.gitkeep
 
 # Checkpoints
 checkpoints/
