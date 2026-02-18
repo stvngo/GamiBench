@@ -2,4 +2,9 @@
 
 from evaluators.base import BaseEvaluator
 
-__all__ = ["BaseEvaluator"]
+try:
+    from evaluators.gamibench_evaluator import GamiBenchEvaluator
+except ImportError:
+    GamiBenchEvaluator = None
+
+__all__ = ["BaseEvaluator", "GamiBenchEvaluator"]
