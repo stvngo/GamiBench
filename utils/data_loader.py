@@ -14,11 +14,11 @@ class DataLoader:
         dataset_path: Union[str, Path],
         format: Optional[str] = None,
         **kwargs
-    ) -> Union[List[Dict], pd.DataFrame]:
+    ) -> Union[List[Dict[str, Any]], pd.DataFrame]:
         """
         Load dataset from file.
         
-        Supports JSON, JSONL, CSV, and TSV formats.
+        Supports JSON, JSONL, CSV, TSV, and the raw GamiBench folder format.
         
         Args:
             dataset_path: Path to dataset file
@@ -35,17 +35,22 @@ class DataLoader:
         
         # Auto-detect format if not specified
         if format is None:
-            suffix = dataset_path.suffix.lower()
-            if suffix == '.json':
-                format = 'json'
-            elif suffix == '.jsonl':
-                format = 'jsonl'
-            elif suffix == '.csv':
-                format = 'csv'
-            elif suffix == '.tsv':
-                format = 'tsv'
+            if dataset_path.is_dir():
+                format = 'gamibench'
             else:
-                raise ValueError(f"Could not auto-detect format for {dataset_path}")
+                suffix = dataset_path.suffix.lower()
+                if suffix == '.json':
+                    format = 'json'
+                elif suffix == '.jsonl':
+                    format = 'jsonl'
+                elif suffix == '.csv':
+                    format = 'csv'
+                elif suffix == '.tsv':
+                    format = 'tsv'
+                else:
+                    raise ValueError(f"Could not auto-detect format for {dataset_path}")
+
+        format = format.lower()
         
         # Load based on format
         if format == 'json':
@@ -55,11 +60,28 @@ class DataLoader:
             data = []
             with open(dataset_path, 'r', encoding='utf-8') as f:
                 for line in f:
-                    data.append(json.loads(line.strip()))
+                    line = line.strip()
+                    if not line:
+                        continue
+                    data.append(json.loads(line))
         elif format == 'csv':
             data = pd.read_csv(dataset_path, **kwargs)
         elif format == 'tsv':
             data = pd.read_csv(dataset_path, sep='\t', **kwargs)
+        elif format == 'gamibench':
+            from benchmarks.gamibench.discovery import discover_examples
+
+            examples = discover_examples(dataset_path)
+            data = [
+                {
+                    'name': ex.name,
+                    'folder': ex.folder,
+                    'normal_cp': ex.normal_cp,
+                    'impossible_cp': ex.impossible_cp,
+                    'viewpoints': dict(ex.viewpoints),
+                }
+                for ex in examples
+            ]
         else:
             raise ValueError(f"Unsupported format: {format}")
         

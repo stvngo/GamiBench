@@ -1,0 +1,36 @@
+# Single-model GamiBench evaluation config.
+base_config: "../base.yaml"
+
+experiment_name: "gamibench_single"
+seed: 42
+
+model:
+  type: "openai"
+  name: "gpt-4o-mini"
+  api_key: "${OPENAI_API_KEY}"
+  temperature: 0.0
+  max_tokens: 8
+
+dataset:
+  path: "data/raw/GamiBench"
+  format: "gamibench"
+
+evaluator:
+  type: "gamibench_evaluator"
+  module: "evaluators.gamibench_evaluator"
+  class: "GamiBenchEvaluator"
+  num_choices: 4
+  include_standard: true
+  include_alternative: true
+  include_impossible: true
+  require_task1_correct_for_task2: true
+  reuse_distractors_for_task2: true
+  temperature: 0.0
+  max_tokens: 8
+  save_every: 1
+  # Optional for deterministic reuse across runs/models:
+  # task_plan_path: "outputs/checkpoints/task_plan_seed42.json"
+
+output_dir: "outputs/results/gamibench_single"
+log_dir: "outputs/logs"
+

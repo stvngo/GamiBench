@@ -1,0 +1,136 @@
+# Multi-model GamiBench evaluation config.
+base_config: "../base.yaml"
+
+experiment_name: "gamibench_suite"
+seed: 42
+
+# Base model is required by generic config validation.
+# The suite runner overrides this per selected model spec.
+model:
+  type: "openai"
+  name: "gpt-4o-mini"
+  api_key: "${OPENAI_API_KEY}"
+  temperature: 0.0
+  max_tokens: 8
+
+dataset:
+  path: "data/raw/GamiBench"
+  format: "gamibench"
+
+evaluator:
+  type: "gamibench_evaluator"
+  module: "evaluators.gamibench_evaluator"
+  class: "GamiBenchEvaluator"
+  num_choices: 4
+  include_standard: true
+  include_alternative: true
+  include_impossible: true
+  require_task1_correct_for_task2: true
+  reuse_distractors_for_task2: true
+  temperature: 0.0
+  max_tokens: 8
+  save_every: 1
+
+output_dir: "outputs/results/gamibench_suite"
+log_dir: "outputs/logs"
+
+suite:
+  output_root: "outputs/results/gamibench_suite"
+  # Optional: override in CLI or keep default under output_root.
+  # task_plan_path: "outputs/results/gamibench_suite/task_plan_seed42.json"
+
+  model_groups:
+    closed:
+      - id: "openai_gpt4o_mini"
+        type: "openai"
+        name: "gpt-4o-mini"
+        api_key: "${OPENAI_API_KEY}"
+        temperature: 0.0
+        max_tokens: 8
+      - id: "claude_4_5_sonnet"
+        type: "anthropic"
+        name: "claude-4-5-sonnet-20241022"
+        api_key: "${ANTHROPIC_API_KEY}"
+        temperature: 0.0
+        max_tokens: 8
+      - id: "gemini_2_5_flash"
+        type: "gemini"
+        name: "gemini-2.5-flash"
+        api_key: "${GEMINI_API_KEY}"
+        temperature: 0.0
+        max_tokens: 8
+      - id: "grok_2_vision"
+        type: "grok"
+        name: "grok-2-vision-1212"
+        api_key: "${XAI_API_KEY}"
+        temperature: 0.0
+        max_tokens: 8
+
+    open:
+      - id: "openrouter_meta_llama_4_scout"
+        type: "openrouter"
+        name: "meta-llama/llama-4-scout"
+        api_key: "${OPENROUTER_API_KEY}"
+        temperature: 0.0
+        max_tokens: 8
+      - id: "openrouter_meta_llama_4_maverick"
+        type: "openrouter"
+        name: "meta-llama/llama-4-maverick"
+        api_key: "${OPENROUTER_API_KEY}"
+        temperature: 0.0
+        max_tokens: 8
+      - id: "openrouter_mistral_medium_3_1"
+        type: "openrouter"
+        name: "mistralai/mistral-medium-3.1"
+        api_key: "${OPENROUTER_API_KEY}"
+        temperature: 0.0
+        max_tokens: 8
+      - id: "openrouter_deepseek_vl_v3_2_exp"
+        type: "openrouter"
+        name: "deepseek-ai/deepseek-vl-v3.2-exp"
+        api_key: "${OPENROUTER_API_KEY}"
+        temperature: 0.0
+        max_tokens: 8
+      - id: "openrouter_deepseek_vl_v3_1_terminus"
+        type: "openrouter"
+        name: "deepseek-ai/deepseek-vl-v3.1-terminus"
+        api_key: "${OPENROUTER_API_KEY}"
+        temperature: 0.0
+        max_tokens: 8
+      - id: "openrouter_deepseek_vl_r1t2_chimera"
+        type: "openrouter"
+        name: "deepseek-ai/deepseek-vl-r1t2-chimera"
+        api_key: "${OPENROUTER_API_KEY}"
+        temperature: 0.0
+        max_tokens: 8
+      - id: "openrouter_gemma_3_27b_it"
+        type: "openrouter"
+        name: "google/gemma-3-27b-it"
+        api_key: "${OPENROUTER_API_KEY}"
+        temperature: 0.0
+        max_tokens: 8
+      - id: "openrouter_internvl_chat_7b_v1_5"
+        type: "openrouter"
+        name: "internlm/internvl-chat-7b-v1-5"
+        api_key: "${OPENROUTER_API_KEY}"
+        temperature: 0.0
+        max_tokens: 8
+      - id: "openrouter_yi_vl_plus"
+        type: "openrouter"
+        name: "01-ai/yi-vl-plus"
+        api_key: "${OPENROUTER_API_KEY}"
+        temperature: 0.0
+        max_tokens: 8
+      - id: "openrouter_glm_4_5v"
+        type: "openrouter"
+        name: "z-ai/glm-4.5V"
+        api_key: "${OPENROUTER_API_KEY}"
+        temperature: 0.0
+        max_tokens: 8
+      - id: "openrouter_spotlight"
+        type: "openrouter"
+        name: "arcee-ai/spotlight"
+        api_key: "${OPENROUTER_API_KEY}"
+        temperature: 0.0
+        max_tokens: 8
+
