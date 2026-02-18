@@ -42,16 +42,19 @@ Examples:
     
     # CLI approach (Option A)
     parser.add_argument(
+        '-b',
         '--benchmark',
         type=str,
         help='Benchmark name (alternative to config file)'
     )
     parser.add_argument(
+        '-m',
         '--model',
         type=str,
         help='Model name/type (alternative to config file)'
     )
     parser.add_argument(
+        '-mc',
         '--model-config',
         type=str,
         help='Path to model configuration file'
@@ -59,6 +62,7 @@ Examples:
     
     # Overrides
     parser.add_argument(
+        '-o',
         '--override',
         action='append',
         dest='overrides',
@@ -67,21 +71,25 @@ Examples:
     
     # Other options
     parser.add_argument(
+        '-od',
         '--output-dir',
         type=str,
         help='Override output directory'
     )
     parser.add_argument(
+        '-s',
         '--seed',
         type=int,
         help='Override random seed'
     )
     parser.add_argument(
+        '-r',
         '--resume',
         action='store_true',
         help='Resume from checkpoint (if supported)'
     )
     parser.add_argument(
+        '-v',
         '--verbose',
         action='store_true',
         help='Enable verbose logging'
