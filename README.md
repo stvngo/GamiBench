@@ -1,8 +1,11 @@
-# GamiBench Research Pipeline
+# GamiBench
 
-End-to-end evaluation pipeline for benchmark experiments, following ML Research Engineering best practices.
+End-to-end evaluation pipeline for benchmark MLLMs on 2D-to-3D Origami spatial mapping and reasoning tasks.
 
-## 🏗️ Structure
+> [!NOTE]
+> Paper: [arXiv:2512.22207](https://arxiv.org/abs/2512.22207)
+
+## Structure
 
 ```
 .
@@ -104,7 +107,7 @@ export XAI_API_KEY=...
 export OPENROUTER_API_KEY=...
 ```
 
-## 📝 Configuration
+## Configuration
 
 Configuration files use YAML format and support:
 - Hierarchical configs (base + experiment-specific)
@@ -134,7 +137,7 @@ evaluator:
 output_dir: "outputs/results"
 ```
 
-## 🔧 Extending the Pipeline
+## Extending the Pipeline
 
 ### Adding a New Model
 
@@ -184,7 +187,7 @@ class MyBenchmarkEvaluator(BaseEvaluator):
         pass
 ```
 
-## 📊 Results
+## Results
 
 Results are saved in `outputs/results/` with:
 - `results.json`: Full evaluation results
@@ -192,36 +195,29 @@ Results are saved in `outputs/results/` with:
 - `config.yaml`: Frozen configuration
 - `metadata.json`: Experiment metadata
 
-## 🧪 Best Practices
-
-### Reproducibility
-- All configs are saved with results
-- Random seeds are set automatically
-- Version control configs and code
-
-### Error Handling
-- Graceful degradation (skips bad examples)
-- Comprehensive error logging
-- Resume capability (checkpointing)
-
-### Scalability
-- Batch processing support
-- Progress tracking
-- Parallel processing where possible
-
-## 📚 Documentation
+## Documentation
 
 - See `configs/base.yaml` for configuration options
 - See `models/base.py` for model interface
 - See `evaluators/base.py` for evaluator interface
 
-## 🤝 Contributing
+## Contributing
 
 1. Follow the modular structure
 2. Add docstrings to all functions
 3. Write tests for new components
 4. Update documentation
 
-## 📄 License
+## Citation
 
-[Your License Here]
+```bibtex
+@misc{spencer2025gamibenchevaluatingspatialreasoning,
+      title={GamiBench: Evaluating Spatial Reasoning and 2D-to-3D Planning Capabilities of MLLMs with Origami Folding Tasks},
+      author={Ryan Spencer and Roey Yaari and Ritvik Vemavarapu and Joyce Yang and Steven Ngo and Utkarsh Sharma},
+      year={2025},
+      eprint={2512.22207},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2512.22207},
+}
+```
