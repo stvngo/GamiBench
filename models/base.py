@@ -1,7 +1,7 @@
 """Base model interface."""
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Union
 
 
 class BaseModel(ABC):
@@ -78,6 +78,22 @@ class BaseModel(ABC):
             List of generated texts
         """
         return [self.generate(prompt, **kwargs) for prompt in prompts]
+
+    def chat_multimodal(
+        self,
+        system_prompt: str,
+        content: List[Dict[str, Any]],
+        **kwargs
+    ) -> str:
+        """
+        Run a multimodal chat request and return raw model text.
+
+        The default implementation raises so benchmarks can fail fast if a
+        text-only model is wired into an image task.
+        """
+        raise NotImplementedError(
+            f"{self.__class__.__name__} does not implement multimodal chat"
+        )
     
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}(name={self.name})"
