@@ -1,13 +1,13 @@
 """Main pipeline orchestration class."""
 
 from pathlib import Path
+import inspect
 from typing import Any, Dict, Optional
-from omegaconf import DictConfig
 
 from models.base import BaseModel
 from models.model_factory import ModelFactory
 from evaluators.base import BaseEvaluator
-from utils.config_loader import load_config, validate_config, save_config
+from utils.config_loader import load_config, validate_config
 from utils.logger import setup_logger
 from utils.seeding import set_seed
 from utils.data_loader import DataLoader
@@ -34,8 +34,10 @@ class Pipeline:
             config_path: Path to configuration file
             overrides: Optional configuration overrides
         """
+        self.config_path = Path(config_path).resolve()
+
         # Load and validate config
-        self.config = load_config(config_path, overrides=overrides)
+        self.config = load_config(str(self.config_path), overrides=overrides)
         validate_config(self.config)
         
         # Setup logging
@@ -55,7 +57,7 @@ class Pipeline:
         self.data = None
         self.evaluator = None
         
-        self.logger.info(f"Pipeline initialized with config: {config_path}")
+        self.logger.info(f"Pipeline initialized with config: {self.config_path}")
     
     def _load_model(self) -> BaseModel:
         """Load and initialize the model."""
@@ -66,12 +68,18 @@ class Pipeline:
         model_config = self.config.model
         
         # Handle API keys from environment
-        if 'api_key' in model_config and model_config.api_key.startswith('$'):
+        if 'api_key' in model_config and isinstance(model_config.api_key, str):
             import os
-            env_var = model_config.api_key[1:]
-            model_config.api_key = os.getenv(env_var)
-            if not model_config.api_key:
-                raise ValueError(f"Environment variable {env_var} not set")
+            if model_config.api_key.startswith("${") and model_config.api_key.endswith("}"):
+                env_var = model_config.api_key[2:-1]
+                model_config.api_key = os.getenv(env_var)
+                if not model_config.api_key:
+                    raise ValueError(f"Environment variable {env_var} not set")
+            elif model_config.api_key.startswith("$"):
+                env_var = model_config.api_key[1:]
+                model_config.api_key = os.getenv(env_var)
+                if not model_config.api_key:
+                    raise ValueError(f"Environment variable {env_var} not set")
         
         self.model = ModelFactory.create(model_config)
         self.logger.info(f"Model loaded: {self.model}")
@@ -84,11 +92,16 @@ class Pipeline:
         
         self.logger.info("Loading data...")
         dataset_config = self.config.dataset
-        dataset_path = dataset_config.path
+        dataset_path = Path(dataset_config.path)
         
-        # Support relative paths from config directory
-        if not Path(dataset_path).is_absolute():
-            dataset_path = Path("data") / dataset_path
+        # Support relative paths from config directory and cwd
+        if not dataset_path.is_absolute():
+            config_relative = (self.config_path.parent / dataset_path).resolve()
+            cwd_relative = (Path.cwd() / dataset_path).resolve()
+            if config_relative.exists():
+                dataset_path = config_relative
+            else:
+                dataset_path = cwd_relative
         
         self.data = DataLoader.load(dataset_path, format=dataset_config.get('format'))
         self.logger.info(f"Loaded {len(self.data)} examples")
@@ -118,7 +131,11 @@ class Pipeline:
         # Initialize evaluator
         model = self._load_model()
         data = self._load_data()
-        self.evaluator = evaluator_class(model, data, evaluator_config)
+        init_sig = inspect.signature(evaluator_class.__init__)
+        if "full_config" in init_sig.parameters:
+            self.evaluator = evaluator_class(model, data, evaluator_config, full_config=self.config)
+        else:
+            self.evaluator = evaluator_class(model, data, evaluator_config)
         self.logger.info(f"Evaluator loaded: {self.evaluator}")
         return self.evaluator
     
@@ -139,7 +156,11 @@ class Pipeline:
         
         # Run evaluation
         self.logger.info("Running evaluation...")
-        results = evaluator.evaluate()
+        evaluate_sig = inspect.signature(evaluator.evaluate)
+        if "resume" in evaluate_sig.parameters:
+            results = evaluator.evaluate(resume=resume)
+        else:
+            results = evaluator.evaluate()
         
         # Save results
         output_dir = self.config.get('output_dir', 'outputs/results')

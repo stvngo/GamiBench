@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 import random
-from typing import Dict, List, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 from benchmarks.gamibench.types import (
     OrigamiExample,
@@ -61,7 +61,7 @@ def _build_standard_task(
     example: OrigamiExample,
     task_index: int,
     config: TaskBuilderConfig,
-) -> Optional[Tuple[TaskSample, Dict[str, str], str]]:
+) -> Optional[Tuple[TaskSample, Dict[str, Any], str]]:
     if not example.normal_cp or not example.viewpoints:
         return None
 
@@ -99,7 +99,7 @@ def _build_alternative_task(
     task_index: int,
     config: TaskBuilderConfig,
     first_viewpoint: str,
-    standard_context: Dict[str, str],
+    standard_context: Dict[str, Any],
     prerequisite_task_id: str,
 ) -> Optional[TaskSample]:
     if not example.normal_cp or not example.viewpoints:

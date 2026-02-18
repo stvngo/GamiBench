@@ -34,6 +34,7 @@ setup(
     entry_points={
         "console_scripts": [
             "gamibench=run:main",
+            "gamibench-suite=scripts.run_gamibench_suite:main",
         ],
     },
 )
