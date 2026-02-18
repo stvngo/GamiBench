@@ -20,6 +20,7 @@ pandas>=2.0.0
 # Optional: Local models
 torch>=2.0.0  # PyTorch
 transformers>=4.30.0  # HuggingFace Transformers
+vllm>=0.6.0  # VLLM
 
 # Development dependencies
 pytest>=7.4.0
