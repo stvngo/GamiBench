@@ -11,12 +11,12 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 setup(
     name="gamibench",
     version="0.1.0",
-    author="Your Name",
-    author_email="your.email@example.com",
-    description="End-to-end evaluation pipeline for benchmark experiments",
+    author="Steven Ngo",
+    author_email="svngo@ucsd.edu",
+    description="End-to-end evaluation pipeline for MLLMs on 2D-to-3D Origami spatial mapping and reasoning tasks",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/GamiBench",
+    url="https://github.com/stvngo/GamiBench",
     packages=find_packages(exclude=["tests", "tests.*"]),
     classifiers=[
         "Development Status :: 3 - Alpha",
