@@ -72,6 +72,38 @@ python run.py \
     --model-config configs/models/openai.yaml
 ```
 
+### GamiBench End-to-End Scripts
+
+The notebook evaluation flow is available as reproducible script runners:
+
+```bash
+# Single model (standard + alternative-view + impossible tasks)
+python run.py configs/experiments/gamibench_single.yaml
+
+# Multi-model suite (closed + open model groups, deterministic task plan)
+python scripts/run_gamibench_suite.py --config configs/experiments/gamibench_suite.yaml --group all
+
+# Closed-only or open-only
+python scripts/run_gamibench_suite.py --group closed
+python scripts/run_gamibench_suite.py --group open
+
+# Run only selected models by id
+python scripts/run_gamibench_suite.py --models openai_gpt4o_mini claude_4_5_sonnet
+
+# Resume unfinished model checkpoints
+python scripts/run_gamibench_suite.py --resume
+```
+
+Set provider keys before running:
+
+```bash
+export OPENAI_API_KEY=...
+export ANTHROPIC_API_KEY=...
+export GEMINI_API_KEY=...
+export XAI_API_KEY=...
+export OPENROUTER_API_KEY=...
+```
+
 ## 📝 Configuration
 
 Configuration files use YAML format and support:
