@@ -1,12 +1,12 @@
 # GamiBench
 
-End-to-end evaluation pipeline for benchmark MLLMs on 2D-to-3D Origami spatial mapping and reasoning tasks (FrontierIR, NeusymBridge, & LMReasoning Bridge @ AAAI 2026, Springer Nature 2026).
+End-to-end evaluation pipeline for benchmark MLLMs on 2D-to-3D Origami spatial mapping and reasoning tasks *(FrontierIR, NeusymBridge, & LMReasoning Bridge @ AAAI 2026, Springer Nature 2026)*.
 
 > Paper: [arXiv:2512.22207](https://arxiv.org/abs/2512.22207) | Dataset: [Hugging Face](https://huggingface.co/datasets/stvngo/GamiBench)
 
 ![GamiBench Example](assets/img/example.png)
 
-GamiBench includes 186 valid and 186 impossible crease-pattern examples. Each crease pattern uses mountain/valley fold assignments and is paired with corresponding 3D folded outcomes across viewpoints (top, bottom, front, back, right, left).
+**GamiBench** includes **186** valid and **186** impossible crease-pattern examples. Each crease pattern uses mountain/valley fold assignments and is paired with corresponding 3D folded outcomes across 6 viewpoints (top, bottom, front, back, right, left).
 
 ![GamiBench Pipeline](assets/img/pipeline.png)
 
@@ -20,7 +20,7 @@ The evaluation framework is config-driven and reproducible, supporting single-mo
 
 ```
 .
-├── configs/              # Configuration files (YAML/JSON)
+├── configs/             # Configuration files (YAML/JSON)
 │   ├── base.yaml        # Base configuration template
 │   ├── experiments/     # Experiment-specific configs
 │   ├── models/          # Model configurations
@@ -28,10 +28,10 @@ The evaluation framework is config-driven and reproducible, supporting single-mo
 ├── data/                # Dataset folders (creases + fold viewpoints)
 │   └── GamiBench/
 ├── models/              # Model definitions, wrappers
-│   ├── base.py         # BaseModel interface
+│   ├── base.py          # BaseModel interface
 │   └── model_factory.py # Model factory
 ├── evaluators/          # Evaluation logic
-│   └── base.py         # BaseEvaluator interface
+│   └── base.py          # BaseEvaluator interface
 ├── baselines/           # Baseline implementations
 ├── experiments/         # Experiment scripts
 ├── utils/               # Shared utilities
@@ -46,7 +46,7 @@ The evaluation framework is config-driven and reproducible, supporting single-mo
 │   └── checkpoints/
 ├── scripts/             # One-off scripts, analysis
 ├── pipeline.py          # Main pipeline orchestration
-└── run.py              # Main entry point
+└── run.py               # Main entry point
 ```
 
 ## 🚀 Quick Start
@@ -251,6 +251,7 @@ Results are saved in `outputs/results/` with:
 4. Update documentation
 
 ## Citation
+Please cite our work for future usage!
 
 ```bibtex
 @misc{spencer2025gamibenchevaluatingspatialreasoning,
