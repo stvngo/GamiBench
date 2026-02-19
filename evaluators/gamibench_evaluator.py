@@ -25,6 +25,7 @@ from benchmarks.gamibench.types import (
 )
 from evaluators.base import BaseEvaluator
 from models.base import BaseModel
+from utils.logger import setup_logger
 
 
 def _to_plain_dict(config: Any) -> Dict[str, Any]:
@@ -46,6 +47,13 @@ class GamiBenchEvaluator(BaseEvaluator):
         super().__init__(model=model, data=data, config=config)
         self.full_config = full_config
         cfg = _to_plain_dict(config)
+
+        logger_name = "gamibench_evaluator"
+        log_dir = "outputs/logs"
+        if full_config is not None:
+            logger_name = full_config.get("experiment_name", logger_name)
+            log_dir = full_config.get("log_dir", log_dir)
+        self.logger = setup_logger(name=logger_name, log_dir=log_dir)
 
         global_seed = 42
         if full_config is not None:
