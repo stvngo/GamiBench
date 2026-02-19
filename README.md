@@ -6,6 +6,10 @@ End-to-end evaluation pipeline for benchmark MLLMs on 2D-to-3D Origami spatial m
 
 ![GamiBench Pipeline](assets/img/pipeline.png)
 
+## Releases
+
+- [v0.1.0 - Initial Public Release](RELEASE_v0.1.0.md)
+
 ## Structure
 
 ```
