@@ -8,7 +8,8 @@ End-to-end evaluation pipeline for benchmark MLLMs on 2D-to-3D Origami spatial m
 
 **GamiBench** includes **186** valid and **186** impossible crease-pattern examples. Each crease pattern uses mountain/valley fold assignments and is paired with corresponding 3D folded outcomes across 6 viewpoints (top, bottom, front, back, right, left).
 
-![GamiBench Pipeline](assets/img/pipeline.png)
+<!-- ![GamiBench Pipeline](assets/img/pipeline.png) -->
+![GamiBench Pipeline](assets/img/mapping.svg)
 
 The evaluation framework is config-driven and reproducible, supporting single-model and multi-model runs, automatic and deterministic triple-task task generation with seeds, checkpoint/resume, and structured result logging for end-to-end benchmarking.
 
