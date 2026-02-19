@@ -2,7 +2,7 @@
 
 End-to-end evaluation pipeline for benchmark MLLMs on 2D-to-3D Origami spatial mapping and reasoning tasks (FrontierIR, NeusymBridge, & LMReasoning Bridge @ AAAI 2026, Springer Nature 2026).
 
-> Paper: [arXiv:2512.22207](https://arxiv.org/abs/2512.22207)
+> Paper: [arXiv:2512.22207](https://arxiv.org/abs/2512.22207) | Dataset: [Hugging Face](https://huggingface.co/datasets/stvngo/GamiBench)
 
 ![GamiBench Example](assets/img/example.png)
 
